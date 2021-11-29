@@ -1,0 +1,8 @@
+.nav {
+    grid-area: n;
+    background: rgba(90, 90, 90, 0.5);
+
+}
+.item{
+    color: white;
+}

@@ -1,0 +1,10 @@
+.item{
+    color: darkslategray;
+}
+.textarea{
+    resize: none;
+    width: 85%;
+    height: 35px;
+    margin: 15px 0;
+    border-radius: 15px;
+}
