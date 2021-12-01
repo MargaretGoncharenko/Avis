@@ -15,6 +15,7 @@ const App = () => {
                 <Dialogs/>
             </div>
         </div>
+
     );
 }
 
