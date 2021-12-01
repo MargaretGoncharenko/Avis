@@ -7,14 +7,15 @@ import {Dialogs} from "./components/Dialogs/Dialogs";
 
 const App = () => {
     return (
-            <div className="app-wrapper">
-                <Header/>
-                <Navbar/>
-                <div className="app-wrapper-content">
-                    {/*<Dialogs/>*/}
-                    <Profile/>
-                </div>
+        <div className="app-wrapper">
+            <Header/>
+            <Navbar/>
+            <div className={"app-wrapper-content"}>
+                {/*<Profile/>*/}
+                <Dialogs/>
             </div>
+        </div>
+
     );
 }
 
