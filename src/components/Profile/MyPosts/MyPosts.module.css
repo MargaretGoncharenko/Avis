@@ -3,8 +3,19 @@
 }
 .textarea{
     resize: none;
-    width: 65%;
+    width: 75%;
     height: 45px;
     margin: 15px 0;
     border-radius: 15px;
+}
+.addBtn{
+    display: flex;
+    justify-content: flex-start;
+
+}
+.posts{
+    margin:25px;
+}
+.posts div{
+    padding: 5px;
 }
