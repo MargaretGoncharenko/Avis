@@ -1,15 +1,14 @@
 import React from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-
-import {postsDataProps} from "../Profile";
+import {PostsPropsType} from "../../../index";
 
 type MyPostsProps = {
-    postsData: Array<postsDataProps>
+    posts: Array<PostsPropsType>
 }
 export const MyPosts = (props: MyPostsProps) => {
 
-    const postsElements = props.postsData.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
+    const postsElements = props.posts.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
     return (
         <div>
             <div>
