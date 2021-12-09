@@ -2,7 +2,14 @@ import React from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
 
-export const MyPosts = () => {
+import {postsDataProps} from "../Profile";
+
+type MyPostsProps = {
+    postsData: Array<postsDataProps>
+}
+export const MyPosts = (props: MyPostsProps) => {
+
+    const postsElements = props.postsData.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
     return (
         <div>
             <div>
@@ -15,8 +22,7 @@ export const MyPosts = () => {
                 </div>
             </div>
             <div className={mp.posts}>
-                <div><Post message="Hi! How are you?" likesCount={21}/></div>
-                <div><Post message="It's my first post." likesCount={28}/></div>
+                {postsElements}
             </div>
         </div>
     )
