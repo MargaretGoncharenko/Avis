@@ -1,20 +1,18 @@
 import React from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {PostsPropsType} from "../../../index";
+import {ProfilePagePropsType} from "../../../redux/state";
 
 type MyPostsProps = {
-    posts: Array<PostsPropsType>
+    posts: ProfilePagePropsType
 }
 export const MyPosts = (props: MyPostsProps) => {
-
-    const postsElements = props.posts.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
+    const postsElements = props.posts.posts.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
     return (
         <div>
             <div>
                 <div>
-                    <textarea className={mp.textarea}
-                              placeholder="Post something!"/>
+                    <textarea className={mp.textarea} placeholder="Post something!"/>
                 </div>
                 <div>
                     <button className={mp.addBtn}>Add post</button>
