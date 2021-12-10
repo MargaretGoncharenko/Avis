@@ -1,4 +1,5 @@
 import {v1} from "uuid";
+import {renderTree} from "../render";
 
 export type MessagePropsType = {
     id: string
@@ -51,4 +52,23 @@ export const state: RootStatePropsType = {
             {id: v1(), message: "thanks"},
         ]
     }
+}
+
+export const addPostToState = (postMessage: string) => {
+    const newPost: PostPropsType = {
+        id: v1(),
+        postText: postMessage,
+        likesCount: 0
+    }
+    state.profilePage.posts.push(newPost)
+    renderTree(state);
+}
+
+export const addMessageToState = (messageText: string) => {
+    const newMessage: MessagePropsType = {
+        id: v1(),
+        message: messageText,
+    }
+    state.dialogsPage.messages.push(newMessage)
+    renderTree(state);
 }

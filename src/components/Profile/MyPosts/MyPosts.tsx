@@ -5,12 +5,16 @@ import {ProfilePagePropsType} from "../../../redux/state";
 
 type MyPostsProps = {
     posts: ProfilePagePropsType
+    addPostToState: (postMessage: string) => void
 }
 export const MyPosts = (props: MyPostsProps) => {
     const postsElements = props.posts.posts.map(p => <div><Post message={p.postText} likesCount={p.likesCount}/></div>)
     const newPostElement = React.createRef<HTMLTextAreaElement>();
     const addPost = () => {
-        alert(newPostElement.current?.value);
+        if (newPostElement.current) {
+            props.addPostToState(newPostElement.current.value)
+            newPostElement.current.value = "";
+        }
     }
     return (
         <div>
