@@ -1,21 +1,25 @@
-.item{
+.item {
     color: darkslategray;
 }
-.textarea{
+
+.textarea {
     resize: none;
     width: 75%;
     height: 45px;
     margin: 15px 0;
     border-radius: 15px;
 }
-.addBtn{
+
+.addBtn {
     display: flex;
     justify-content: flex-start;
 
 }
-.posts{
-    margin:25px;
+
+.posts {
+    margin: 25px;
 }
-.posts div{
+
+.posts div {
     padding: 5px;
 }
