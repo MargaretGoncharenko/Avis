@@ -21,6 +21,7 @@ export type ProfilePagePropsType = {
 export type DialogsPagePropsType = {
     dialogs: Array<DialogPropsType>
     messages: Array<MessagePropsType>
+    newMessageText: string
 }
 export type RootStatePropsType = {
     profilePage: ProfilePagePropsType
@@ -52,7 +53,8 @@ export const state: RootStatePropsType = {
             {id: v1(), message: "yooooo!!!"},
             {id: v1(), message: "fine"},
             {id: v1(), message: "thanks"},
-        ]
+        ],
+        newMessageText: ""
     }
 }
 
@@ -63,6 +65,7 @@ export const addPostToState = () => {
         likesCount: 0
     }
     state.profilePage.posts.push(newPost)
+    state.profilePage.newPostText = "";
     renderTree(state);
 }
 export const updatePostText = (newText: string) => {
@@ -70,11 +73,15 @@ export const updatePostText = (newText: string) => {
     renderTree(state);
 }
 
-export const addMessageToState = (messageText: string) => {
+export const addMessageToState = () => {
     const newMessage: MessagePropsType = {
         id: v1(),
-        message: messageText,
+        message: state.dialogsPage.newMessageText,
     }
     state.dialogsPage.messages.push(newMessage)
+    renderTree(state);
+}
+export const updateMessageText = (newText: string) => {
+    state.dialogsPage.newMessageText = newText;
     renderTree(state);
 }

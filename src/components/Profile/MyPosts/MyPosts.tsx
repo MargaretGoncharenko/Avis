@@ -16,7 +16,6 @@ export const MyPosts = (props: MyPostsProps) => {
         </div>)
     const addPost = () => {
         props.addPostToState(props.newPostText)
-        props.updatePostText("");
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updatePostText(e.currentTarget.value)

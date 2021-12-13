@@ -15,6 +15,7 @@ type AppProps = {
     addPostToState: (postMessage: string) => void
     addMessageToState: (messageText: string) => void
     updatePostText: (newText: string) => void
+    updateMessageText: (newText: string) => void
 }
 const App = (props: AppProps) => {
     return (
@@ -30,7 +31,10 @@ const App = (props: AppProps) => {
                 />}/>
                 <Route path="/messages" render={() => <Dialogs
                     dialogs={props.state.dialogsPage}
-                    addMessageToState={props.addMessageToState}/>}/>
+                    addMessageToState={props.addMessageToState}
+                    newMessageText={props.state.dialogsPage.newMessageText}
+                    updateMessageText={props.updateMessageText}
+                />}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
                 <Route path="/settings" render={() => <Settings/>}/>

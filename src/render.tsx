@@ -1,4 +1,4 @@
-import {addMessageToState, addPostToState, RootStatePropsType, updatePostText} from "./redux/state";
+import {addMessageToState, addPostToState, RootStatePropsType, updateMessageText, updatePostText} from "./redux/state";
 import ReactDOM from "react-dom";
 import React from "react";
 import {BrowserRouter} from "react-router-dom";
@@ -11,7 +11,9 @@ export const renderTree = (state: RootStatePropsType) => {
                 <App state={state}
                      addPostToState={addPostToState}
                      updatePostText={updatePostText}
-                     addMessageToState={addMessageToState}/>
+                     addMessageToState={addMessageToState}
+                     updateMessageText={updateMessageText}
+                />
             </BrowserRouter>
         </React.StrictMode>,
         document.getElementById('root')
