@@ -1,5 +1,8 @@
 import {v1} from "uuid";
-import {renderTree} from "../render";
+
+let renderTree = () => {
+    console.log("state was changed")
+}
 
 export type MessagePropsType = {
     id: string
@@ -66,11 +69,11 @@ export const addPostToState = () => {
     }
     state.profilePage.posts.push(newPost)
     state.profilePage.newPostText = "";
-    renderTree(state);
+    renderTree();
 }
 export const updatePostText = (newText: string) => {
     state.profilePage.newPostText = newText;
-    renderTree(state);
+    renderTree();
 }
 
 export const addMessageToState = () => {
@@ -79,9 +82,13 @@ export const addMessageToState = () => {
         message: state.dialogsPage.newMessageText,
     }
     state.dialogsPage.messages.push(newMessage)
-    renderTree(state);
+    renderTree();
 }
 export const updateMessageText = (newText: string) => {
     state.dialogsPage.newMessageText = newText;
-    renderTree(state);
+    renderTree();
+}
+
+export const subscribe = (observer: () => void) => {
+    renderTree = observer;
 }
