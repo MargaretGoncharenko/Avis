@@ -8,32 +8,33 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {RootStatePropsType} from "./redux/state";
+import {StoreType} from "./redux/state";
 
 type AppProps = {
-    state: RootStatePropsType
-    addPostToState: (postMessage: string) => void
-    addMessageToState: (messageText: string) => void
-    updatePostText: (newText: string) => void
-    updateMessageText: (newText: string) => void
+    store: StoreType
 }
 const App = (props: AppProps) => {
+    const state = props.store.getState();
     return (
         <div className="app-wrapper">
             <Header/>
             <Navbar/>
             <div className={"app-wrapper-content"}>
                 <Route path="/profile" render={() => <Profile
-                    profilePage={props.state.profilePage}
-                    newPostText={props.state.profilePage.newPostText}
-                    addPostToState={props.addPostToState}
-                    updatePostText={props.updatePostText}
+                    //достаем из state
+                    profilePage={state.profilePage}
+                    newPostText={state.profilePage.newPostText}
+                    //достаем из пропсов store (нужен bind)
+                    addPostToState={props.store.addPostToState.bind(props.store)}
+                    updatePostText={props.store.updatePostText.bind(props.store)}
                 />}/>
                 <Route path="/messages" render={() => <Dialogs
-                    dialogs={props.state.dialogsPage}
-                    addMessageToState={props.addMessageToState}
-                    newMessageText={props.state.dialogsPage.newMessageText}
-                    updateMessageText={props.updateMessageText}
+                    //достаем из state
+                    dialogs={state.dialogsPage}
+                    newMessageText={state.dialogsPage.newMessageText}
+                    //достаем из пропсов store (нужен bind)
+                    addMessageToState={props.store.addMessageToState.bind(props.store)}
+                    updateMessageText={props.store.updateMessageText.bind(props.store)}
                 />}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>

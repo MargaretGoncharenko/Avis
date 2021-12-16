@@ -1,9 +1,5 @@
 import {v1} from "uuid";
 
-let renderTree = () => {
-    console.log("state was changed")
-}
-
 export type MessagePropsType = {
     id: string
     message: string
@@ -31,64 +27,85 @@ export type RootStatePropsType = {
     dialogsPage: DialogsPagePropsType
 }
 
-export const state: RootStatePropsType = {
-    profilePage: {
-        posts: [
-            {id: v1(), postText: "Hi! How are you?", likesCount: 21},
-            {id: v1(), postText: "Hello everyone!", likesCount: 45},
-            {id: v1(), postText: "It's my first post.", likesCount: 28},
-        ],
-        newPostText: ""
+
+export type StoreType = {
+    _state: RootStatePropsType
+    _callSubscriber: () => void
+    addPostToState: () => void
+    updatePostText: (newText: string) => void
+    addMessageToState: () => void
+    updateMessageText: (newText: string) => void
+    subscribe: (observer: () => void) => void
+    getState: () => RootStatePropsType
+}
+export const store: StoreType = {
+    _state: {
+        profilePage: {
+            posts: [
+                {id: v1(), postText: "Hi! How are you?", likesCount: 21},
+                {id: v1(), postText: "Hello everyone!", likesCount: 45},
+                {id: v1(), postText: "It's my first post.", likesCount: 28},
+            ],
+            newPostText: ""
+        },
+        dialogsPage: {
+            dialogs: [
+                {id: v1(), name: "Andrey"},
+                {id: v1(), name: "Valery"},
+                {id: v1(), name: "Anna"},
+                {id: v1(), name: "Ira"},
+                {id: v1(), name: "Katya"},
+                {id: v1(), name: "Maxim"},
+            ],
+            messages: [
+                {id: v1(), message: "hello"},
+                {id: v1(), message: "hey"},
+                {id: v1(), message: "how are you?"},
+                {id: v1(), message: "yooooo!!!"},
+                {id: v1(), message: "fine"},
+                {id: v1(), message: "thanks"},
+            ],
+            newMessageText: ""
+        }
     },
-    dialogsPage: {
-        dialogs: [
-            {id: v1(), name: "Andrey"},
-            {id: v1(), name: "Valery"},
-            {id: v1(), name: "Anna"},
-            {id: v1(), name: "Ira"},
-            {id: v1(), name: "Katya"},
-            {id: v1(), name: "Maxim"},
-        ],
-        messages: [
-            {id: v1(), message: "hello"},
-            {id: v1(), message: "hey"},
-            {id: v1(), message: "how are you?"},
-            {id: v1(), message: "yooooo!!!"},
-            {id: v1(), message: "fine"},
-            {id: v1(), message: "thanks"},
-        ],
-        newMessageText: ""
+    addPostToState() {
+        const newPost: PostPropsType = {
+            id: v1(),
+            postText: this._state.profilePage.newPostText,
+            likesCount: 0
+        }
+        this._state.profilePage.posts.push(newPost)
+        this._state.profilePage.newPostText = "";
+        this._callSubscriber();
+    },
+    updatePostText(newText: string) {
+        this._state.profilePage.newPostText = newText;
+        debugger;
+        this._callSubscriber();
+    },
+    addMessageToState() {
+        const newMessage: MessagePropsType = {
+            id: v1(),
+            message: this._state.dialogsPage.newMessageText,
+        }
+        this._state.dialogsPage.messages.push(newMessage)
+        this._callSubscriber();
+    },
+    updateMessageText(newText: string) {
+        this._state.dialogsPage.newMessageText = newText;
+        this._callSubscriber();
+    },
+    _callSubscriber() {
+        console.log("state was changed")
+    },
+    subscribe(observer) {
+        this._callSubscriber = observer;
+    },
+    getState() {
+        return this._state
     }
 }
 
-export const addPostToState = () => {
-    const newPost: PostPropsType = {
-        id: v1(),
-        postText: state.profilePage.newPostText,
-        likesCount: 0
-    }
-    state.profilePage.posts.push(newPost)
-    state.profilePage.newPostText = "";
-    renderTree();
-}
-export const updatePostText = (newText: string) => {
-    state.profilePage.newPostText = newText;
-    renderTree();
-}
 
-export const addMessageToState = () => {
-    const newMessage: MessagePropsType = {
-        id: v1(),
-        message: state.dialogsPage.newMessageText,
-    }
-    state.dialogsPage.messages.push(newMessage)
-    renderTree();
-}
-export const updateMessageText = (newText: string) => {
-    state.dialogsPage.newMessageText = newText;
-    renderTree();
-}
 
-export const subscribe = (observer: () => void) => {
-    renderTree = observer;
-}
+
