@@ -13,6 +13,7 @@ export const renderTree = () => {
             <BrowserRouter>
                 <App
                     store={store}
+                    dispatch={store.dispatch.bind(store)}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -20,7 +21,7 @@ export const renderTree = () => {
     );
 }
 
-store._callSubscriber();
+store.subscribe(renderTree);
 renderTree();
 
 reportWebVitals();

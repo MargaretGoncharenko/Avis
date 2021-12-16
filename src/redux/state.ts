@@ -31,13 +31,33 @@ export type RootStatePropsType = {
 export type StoreType = {
     _state: RootStatePropsType
     _callSubscriber: () => void
-    addPostToState: () => void
-    updatePostText: (newText: string) => void
-    addMessageToState: () => void
-    updateMessageText: (newText: string) => void
     subscribe: (observer: () => void) => void
     getState: () => RootStatePropsType
+    dispatch: (action: AllActionTypes) => void
 }
+
+export type AddPostActionType = {
+    type: "ADD-POST-TO-STATE"
+    newPostText: string
+}
+type UpdatePostTextActionType = {
+    type: "UPDATE-POST-TEXT"
+    newText: string
+}
+type AddMessageActionType = {
+    type: "ADD-MESSAGE-TO-STATE"
+    newMessageText: string
+}
+type UpdateMessageTextActionType = {
+    type: "UPDATE-MESSAGE-TEXT"
+    newText: string
+}
+export type AllActionTypes =
+    AddPostActionType
+    | UpdatePostTextActionType
+    | AddMessageActionType
+    | UpdateMessageTextActionType;
+
 export const store: StoreType = {
     _state: {
         profilePage: {
@@ -68,33 +88,6 @@ export const store: StoreType = {
             newMessageText: ""
         }
     },
-    addPostToState() {
-        const newPost: PostPropsType = {
-            id: v1(),
-            postText: this._state.profilePage.newPostText,
-            likesCount: 0
-        }
-        this._state.profilePage.posts.push(newPost)
-        this._state.profilePage.newPostText = "";
-        this._callSubscriber();
-    },
-    updatePostText(newText: string) {
-        this._state.profilePage.newPostText = newText;
-        debugger;
-        this._callSubscriber();
-    },
-    addMessageToState() {
-        const newMessage: MessagePropsType = {
-            id: v1(),
-            message: this._state.dialogsPage.newMessageText,
-        }
-        this._state.dialogsPage.messages.push(newMessage)
-        this._callSubscriber();
-    },
-    updateMessageText(newText: string) {
-        this._state.dialogsPage.newMessageText = newText;
-        this._callSubscriber();
-    },
     _callSubscriber() {
         console.log("state was changed")
     },
@@ -103,6 +96,32 @@ export const store: StoreType = {
     },
     getState() {
         return this._state
+    },
+    dispatch(action) {
+        if (action.type === "ADD-POST-TO-STATE") {
+            const newPost: PostPropsType = {
+                id: v1(),
+                postText: action.newPostText,
+                likesCount: 0
+            }
+            this._state.profilePage.posts.push(newPost)
+            this._state.profilePage.newPostText = "";
+            this._callSubscriber();
+        } else if (action.type === "UPDATE-POST-TEXT") {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubscriber();
+        } else if (action.type === "ADD-MESSAGE-TO-STATE") {
+            const newMessage: MessagePropsType = {
+                id: v1(),
+                message: action.newMessageText,
+            }
+            this._state.dialogsPage.messages.push(newMessage)
+            this._state.dialogsPage.newMessageText = ""
+            this._callSubscriber();
+        } else if (action.type === "UPDATE-MESSAGE-TEXT") {
+            this._state.dialogsPage.newMessageText = action.newText;
+            this._callSubscriber();
+        }
     }
 }
 

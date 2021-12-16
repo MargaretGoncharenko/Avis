@@ -8,10 +8,11 @@ import {Route} from "react-router-dom";
 import {News} from "./components/News/News";
 import {Music} from "./components/Music/Music";
 import {Settings} from "./components/Settings/Settings";
-import {StoreType} from "./redux/state";
+import {AllActionTypes, StoreType} from "./redux/state";
 
 type AppProps = {
     store: StoreType
+    dispatch: (action: AllActionTypes) => void
 }
 const App = (props: AppProps) => {
     const state = props.store.getState();
@@ -21,20 +22,14 @@ const App = (props: AppProps) => {
             <Navbar/>
             <div className={"app-wrapper-content"}>
                 <Route path="/profile" render={() => <Profile
-                    //достаем из state
+                    dispatch={props.store.dispatch.bind(props.store)}
                     profilePage={state.profilePage}
                     newPostText={state.profilePage.newPostText}
-                    //достаем из пропсов store (нужен bind)
-                    addPostToState={props.store.addPostToState.bind(props.store)}
-                    updatePostText={props.store.updatePostText.bind(props.store)}
                 />}/>
                 <Route path="/messages" render={() => <Dialogs
-                    //достаем из state
+                    dispatch={props.store.dispatch.bind(props.store)}
                     dialogs={state.dialogsPage}
                     newMessageText={state.dialogsPage.newMessageText}
-                    //достаем из пропсов store (нужен bind)
-                    addMessageToState={props.store.addMessageToState.bind(props.store)}
-                    updateMessageText={props.store.updateMessageText.bind(props.store)}
                 />}/>
                 <Route path="/news" render={() => <News/>}/>
                 <Route path="/music" render={() => <Music/>}/>
