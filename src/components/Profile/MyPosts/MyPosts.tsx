@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {AllActionTypes, ProfilePagePropsType} from "../../../redux/state";
+import {AddPostAC, AllActionTypes, ProfilePagePropsType, UpdatePostTextAC} from "../../../redux/state";
 
 type MyPostsProps = {
     posts: ProfilePagePropsType
@@ -14,10 +14,11 @@ export const MyPosts = (props: MyPostsProps) => {
             <Post message={p.postText} likesCount={p.likesCount}/>
         </div>)
     const addPost = () => {
-        props.dispatch({type: "ADD-POST-TO-STATE", newPostText: props.newPostText})
+        props.dispatch(AddPostAC(props.newPostText))
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch({type: "UPDATE-POST-TEXT", newText: e.currentTarget.value})
+        props.dispatch(UpdatePostTextAC(e.currentTarget.value)
+        )
     }
     return (
         <div>
