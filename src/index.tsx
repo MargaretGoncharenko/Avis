@@ -6,13 +6,13 @@ import {BrowserRouter} from "react-router-dom";
 import App from "./App";
 import {store} from "./redux/state";
 
-
 export const renderTree = () => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App
                     store={store}
+                    //@ts-ignore
                     dispatch={store.dispatch.bind(store)}
                 />
             </BrowserRouter>
