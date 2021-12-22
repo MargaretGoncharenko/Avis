@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ProfileActionTypes, ProfilePagePropsType} from "../../../redux/state";
+import {ProfileActionTypes, ProfilePagePropsType} from "../../../redux/store";
 import {AddPostAC, UpdatePostTextAC} from "../../../redux/profile-reducer";
 
 type MyPostsProps = {

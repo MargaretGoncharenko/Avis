@@ -4,15 +4,15 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
-import {store} from "./redux/state";
+import {RootStoreType, store} from "./redux/redux-store";
+import {Store} from "redux";
 
-export const renderTree = () => {
+export const renderTree = (store: Store<RootStoreType, any>) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
                 <App
                     store={store}
-                    //@ts-ignore
                     dispatch={store.dispatch.bind(store)}
                 />
             </BrowserRouter>
@@ -21,8 +21,10 @@ export const renderTree = () => {
     );
 }
 
-store.subscribe(renderTree);
-renderTree();
+store.subscribe(()=>{
+    renderTree(store)
+});
+renderTree(store);
 
 reportWebVitals();
 
