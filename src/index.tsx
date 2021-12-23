@@ -13,7 +13,6 @@ export const renderTree = (store: Store<RootStoreType, any>) => {
             <BrowserRouter>
                 <App
                     store={store}
-                    dispatch={store.dispatch.bind(store)}
                 />
             </BrowserRouter>
         </React.StrictMode>,
@@ -21,7 +20,7 @@ export const renderTree = (store: Store<RootStoreType, any>) => {
     );
 }
 
-store.subscribe(()=>{
+store.subscribe(() => {
     renderTree(store)
 });
 renderTree(store);
