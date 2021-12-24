@@ -36,7 +36,7 @@ export  type  ProfileActionTypes =
     ReturnType<typeof AddPostAC>
     | ReturnType<typeof UpdatePostTextAC>
 
-export type AllActionTypes = DialogsActionTypes & ProfileActionTypes
+export type AllActionTypes = DialogsActionTypes | ProfileActionTypes
 
 export type StoreType = {
     _state: RootStatePropsType
@@ -91,4 +91,3 @@ export const store: StoreType = {
         this._callSubscriber()
     },
 }
-

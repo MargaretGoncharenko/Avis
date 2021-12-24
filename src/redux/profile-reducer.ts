@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {PostPropsType, ProfileActionTypes, ProfilePagePropsType} from "./store";
+import {AllActionTypes, PostPropsType, ProfilePagePropsType} from "./store";
 
 const initialState = {
     posts: [
@@ -10,7 +10,7 @@ const initialState = {
     newPostText: ""
 }
 
-export const profileReducer = (state: ProfilePagePropsType = initialState, action: ProfileActionTypes) => {
+export const profileReducer = (state: ProfilePagePropsType = initialState, action: AllActionTypes) => {
     switch (action.type) {
         case "ADD-POST-TO-STATE":
             const newPost: PostPropsType = {

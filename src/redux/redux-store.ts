@@ -7,8 +7,10 @@ const reducers = combineReducers({
     dialogsPage: dialogsReducer,
 });
 
-export type RootStoreType = ReturnType<typeof reducers>
+export let store = createStore(reducers);
 
-export let store: Store<RootStoreType, any> = createStore(reducers);
+
+// export type RootStateType = ReturnType<typeof store.getState>
+// export type RootStoreType = ReturnType<typeof reducers>
 //Store<RootStoreType, any> Store - это редаксовский стор, RootStoreType -
 // это типизация, которую мы ему даем вручную, any - пока что типизация для action

@@ -1,18 +1,16 @@
 import React, {ChangeEvent} from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {ProfilePagePropsType} from "../../../redux/store";
-
+import {PostPropsType} from "../../../redux/store";
 
 type MyPostsProps = {
     addPost: () => void
     updatePostText: (value: string) => void
     newPostText: string
-    posts: ProfilePagePropsType
-
+    posts: Array<PostPropsType>
 }
 export const MyPosts = (props: MyPostsProps) => {
-    const postsElements = props.posts.posts.map(p =>
+    const postsElements = props.posts.map(p =>
         <div>
             <Post message={p.postText} likesCount={p.likesCount}/>
         </div>)
@@ -21,7 +19,6 @@ export const MyPosts = (props: MyPostsProps) => {
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
         props.updatePostText(e.currentTarget.value)
-
     }
     return (
         <div>

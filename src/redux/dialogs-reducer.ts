@@ -1,5 +1,5 @@
 import {v1} from "uuid";
-import {DialogsActionTypes, DialogsPagePropsType, MessagePropsType} from "./store";
+import {AllActionTypes, DialogsActionTypes, DialogsPagePropsType, MessagePropsType} from "./store";
 
 const initialState = {
     dialogs: [
@@ -20,7 +20,7 @@ const initialState = {
     ],
     newMessageText: ""
 }
-export const dialogsReducer = (state: DialogsPagePropsType = initialState, action: DialogsActionTypes) => {
+export const dialogsReducer = (state: DialogsPagePropsType = initialState, action: AllActionTypes) => {
     switch (action.type) {
         case "ADD-MESSAGE-TO-STATE":
             const newMessage: MessagePropsType = {
