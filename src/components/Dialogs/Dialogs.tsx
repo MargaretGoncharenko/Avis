@@ -5,8 +5,8 @@ import {Message} from "./Message/Message";
 import {DialogsContainerPropsType} from "./DialogsContainer";
 
 export const Dialogs = (props: DialogsContainerPropsType) => {
-    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem name={d.name} id={d.id}/>)
-    const messagesElements = props.dialogsPage.messages.map(m => <Message message={m.message}/>)
+    const dialogsElements = props.dialogsPage.dialogs.map(d => <DialogItem key={d.id} name={d.name} id={d.id}/>)
+    const messagesElements = props.dialogsPage.messages.map(m => <Message key={m.id} message={m.message}/>)
     const addMessage = () => {
         const messageText = props.dialogsPage.newMessageText;
         if (messageText) {
@@ -17,8 +17,6 @@ export const Dialogs = (props: DialogsContainerPropsType) => {
         const text = e.currentTarget.value;
         props.onMessageChange(text)
     }
-
-
     return (
         <div className={d.dialogs}>
             <div className={d.dialogsItems}>

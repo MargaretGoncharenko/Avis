@@ -6,7 +6,7 @@ import {ProfileContainerPropsType} from "./MyPostsContainer";
 export const MyPosts = (props: ProfileContainerPropsType) => {
     const postsElements = props.profilePage.posts.map(p =>
         <div>
-            <Post message={p.postText} likesCount={p.likesCount}/>
+            <Post key={p.id} message={p.postText} likesCount={p.likesCount}/>
         </div>)
     const addPost = () => {
         const postText = props.profilePage.newPostText;
@@ -19,7 +19,6 @@ export const MyPosts = (props: ProfileContainerPropsType) => {
         props.onPostChange(text)
         console.log(text)
     }
-
     return (
         <div>
             <div>
