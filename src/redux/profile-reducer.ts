@@ -1,7 +1,18 @@
 import {v1} from "uuid";
-import {AllActionTypes, PostPropsType, ProfilePagePropsType} from "./store";
+import {AllActionTypes} from "./store";
 
-const initialState = {
+type PostPropsType = {
+    id: string
+    postText: string
+    likesCount: number
+}
+type ProfilePagePropsType = {
+    posts: Array<PostPropsType>
+    newPostText: string
+}
+export type InitialProfileStateType = ProfilePagePropsType
+
+const initialState: InitialProfileStateType = {
     posts: [
         {id: v1(), postText: "Hi! How are you?", likesCount: 21},
         {id: v1(), postText: "Hello everyone!", likesCount: 45},
@@ -10,7 +21,7 @@ const initialState = {
     newPostText: ""
 }
 
-export const profileReducer = (state: ProfilePagePropsType = initialState, action: AllActionTypes) => {
+export const profileReducer = (state: InitialProfileStateType = initialState, action: AllActionTypes): InitialProfileStateType => {
     switch (action.type) {
         case "ADD-POST-TO-STATE":
             const newPost: PostPropsType = {
@@ -20,10 +31,10 @@ export const profileReducer = (state: ProfilePagePropsType = initialState, actio
             }
             state.posts.push(newPost)
             state.newPostText = "";
-            return state;
+            return {...state}
         case  "UPDATE-POST-TEXT":
-            state.newPostText = action.newText;
-            return state;
+            // state.newPostText = action.newText;
+            return {...state, newPostText: action.newText}
         default:
             return state
     }
@@ -40,3 +51,4 @@ export const UpdatePostTextAC = (newPostText: string) => {
         newText: newPostText
     } as const
 }
+

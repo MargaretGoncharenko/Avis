@@ -2,24 +2,24 @@ import {v1} from "uuid";
 import {AddPostAC, profileReducer, UpdatePostTextAC} from "./profile-reducer";
 import {AddMessageAC, dialogsReducer, UpdateMessageTextAC} from "./dialogs-reducer";
 
-export type MessagePropsType = {
+ type MessagePropsType = {
     id: string
     message: string
 }
-export type DialogPropsType = {
+ type DialogPropsType = {
     id: string
     name: string
 }
-export type PostPropsType = {
+ type PostPropsType = {
     id: string
     postText: string
     likesCount: number
 }
-export type ProfilePagePropsType = {
+ type ProfilePagePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
 }
-export type DialogsPagePropsType = {
+ type DialogsPagePropsType = {
     dialogs: Array<DialogPropsType>
     messages: Array<MessagePropsType>
     newMessageText: string
@@ -46,7 +46,7 @@ export type StoreType = {
     dispatch: (action: AllActionTypes) => void
 }
 
-export const store: StoreType = {
+const store: StoreType = {
     _state: {
         profilePage: {
             posts: [

@@ -1,32 +1,32 @@
 import React, {ChangeEvent} from "react";
 import mp from "./MyPosts.module.css";
 import {Post} from "./Post/Post";
-import {PostPropsType} from "../../../redux/store";
+import {ProfileContainerPropsType} from "./MyPostsContainer";
 
-type MyPostsProps = {
-    addPost: () => void
-    updatePostText: (value: string) => void
-    newPostText: string
-    posts: Array<PostPropsType>
-}
-export const MyPosts = (props: MyPostsProps) => {
-    const postsElements = props.posts.map(p =>
+export const MyPosts = (props: ProfileContainerPropsType) => {
+    const postsElements = props.profilePage.posts.map(p =>
         <div>
             <Post message={p.postText} likesCount={p.likesCount}/>
         </div>)
     const addPost = () => {
-        props.addPost();
+        const postText = props.profilePage.newPostText;
+        if (postText) {
+            props.addPost(postText);
+        }
     }
     const onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updatePostText(e.currentTarget.value)
+        const text = e.currentTarget.value;
+        props.onPostChange(text)
+        console.log(text)
     }
+
     return (
         <div>
             <div>
                 <div>
                     <textarea className={mp.textarea}
                               placeholder="Post something!"
-                              value={props.newPostText}
+                              value={props.profilePage.newPostText}
                               onChange={onPostChange}/>
                 </div>
                 <div>

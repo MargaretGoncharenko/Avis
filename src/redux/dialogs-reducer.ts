@@ -1,7 +1,22 @@
 import {v1} from "uuid";
-import {AllActionTypes, DialogsActionTypes, DialogsPagePropsType, MessagePropsType} from "./store";
+import {AllActionTypes} from "./store";
 
-const initialState = {
+type MessagePropsType = {
+    id: string
+    message: string
+}
+type DialogPropsType = {
+    id: string
+    name: string
+}
+type DialogsPagePropsType = {
+    dialogs: Array<DialogPropsType>
+    messages: Array<MessagePropsType>
+    newMessageText: string
+}
+export type InitialDialogsStateType = DialogsPagePropsType
+
+const initialState: InitialDialogsStateType = {
     dialogs: [
         {id: v1(), name: "Andrey"},
         {id: v1(), name: "Valery"},
@@ -20,7 +35,8 @@ const initialState = {
     ],
     newMessageText: ""
 }
-export const dialogsReducer = (state: DialogsPagePropsType = initialState, action: AllActionTypes) => {
+
+export const dialogsReducer = (state: InitialDialogsStateType = initialState, action: AllActionTypes): InitialDialogsStateType => {
     switch (action.type) {
         case "ADD-MESSAGE-TO-STATE":
             const newMessage: MessagePropsType = {
@@ -29,11 +45,10 @@ export const dialogsReducer = (state: DialogsPagePropsType = initialState, actio
             }
             state.messages.push(newMessage)
             state.newMessageText = "";
-            return state
+            return {...state}
 
         case "UPDATE-MESSAGE-TEXT":
-            state.newMessageText = action.newText;
-            return state
+            return {...state, newMessageText: action.newText}
 
         default:
             return state

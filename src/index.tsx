@@ -4,11 +4,10 @@ import reportWebVitals from './reportWebVitals';
 import ReactDOM from "react-dom";
 import {BrowserRouter} from "react-router-dom";
 import App from "./App";
+import {Provider} from 'react-redux';
+import {AppStoreType, store} from "./redux/redux-store";
 
-import {store, StoreType} from "./redux/store";
-import { Provider } from './StoreContext';
-
-export const renderTree = (store: StoreType) => {
+export const renderTree = (store: AppStoreType) => {
     ReactDOM.render(
         <React.StrictMode>
             <BrowserRouter>
