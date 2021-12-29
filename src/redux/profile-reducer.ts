@@ -1,5 +1,6 @@
 import {v1} from "uuid";
-import {AllActionTypes} from "./store";
+import {AllActionTypes} from "./AllActionTypes";
+
 
 type PostPropsType = {
     id: string

@@ -28,15 +28,14 @@ export type RootStatePropsType = {
     profilePage: ProfilePagePropsType
     dialogsPage: DialogsPagePropsType
 }
-export type DialogsActionTypes =
+ type DialogsActionTypes =
     ReturnType<typeof AddMessageAC>
     | ReturnType<typeof UpdateMessageTextAC>
 
-export  type  ProfileActionTypes =
+ type  ProfileActionTypes =
     ReturnType<typeof AddPostAC>
     | ReturnType<typeof UpdatePostTextAC>
-
-export type AllActionTypes = DialogsActionTypes | ProfileActionTypes
+ type AllActionTypes = DialogsActionTypes | ProfileActionTypes
 
 export type StoreType = {
     _state: RootStatePropsType
