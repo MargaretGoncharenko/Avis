@@ -18,12 +18,17 @@ export type UserPropsType = {
 }
 type UsersPagePropsType = {
     users: Array<UserPropsType>
-
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
 }
 export type InitialUsersStateType = UsersPagePropsType
 
 const initialState: InitialUsersStateType = {
     users: [],
+    pageSize: 5,
+    totalUsersCount: 0,
+    currentPage: 1
 }
 
 export const usersReducer = (state: InitialUsersStateType = initialState, action: AllActionTypes): InitialUsersStateType => {
@@ -49,7 +54,11 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
                 })
             }
         case "SET-USERS":
-            return {...state, users: [...action.users]}
+            return {...state, users: action.users}
+        case "SET-CURRENT-PAGE":
+            return {...state, currentPage: action.currentPage}
+        case "TOTAL-USERS-COUNT":
+            return {...state, totalUsersCount: action.totalUsersCount}
         default:
             return state
     }
@@ -58,28 +67,5 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
 export const FollowAC = (userId: string) => ({type: "FOLLOW", userId}) as const
 export const UnfollowAC = (userId: string) => ({type: "UNFOLLOW", userId}) as const
 export const SetUsersAC = (users: Array<UserPropsType>) => ({type: "SET-USERS", users}) as const
-
-// {
-//     id: v1(),
-//     photo: "https://cdn.britannica.com/15/186115-050-22AB26CB/Ava-Gardner-Pandora-Flying-Dutchman-Albert-Lewin.jpg",
-//     followed: true,
-//     fullName: "Helen Novikova",
-//     status: "Hello",
-//     location: {city: "Minsk", country: "Belarus"}
-// },
-// {
-//     id: v1(),
-//     photo: "https://www.gannett-cdn.com/presto/2021/02/12/NATR/7e6a5046-007e-480c-b707-e1f59dc7412c-Ava_Hawthorne_photo.jpg",
-//     followed: false,
-//     fullName: "Svetlana Zakharava",
-//     status: "I'm a boss",
-//     location: {city: "Voronezh", country: "Russia"}
-// },
-// {
-//     id: v1(),
-//     photo: "https://a9p9n2x2.stackpathcdn.com/wp-content/blogs.dir/1/files/2020/02/ava1-e1582642292609.png",
-//     followed: true,
-//     fullName: "Amalia Melejin",
-//     status: "I like pets",
-//     location: {city: "Lviv", country: "Ukraine"}
-// },
+export const SetCurrentPageAC = (currentPage: number) => ({type: "SET-CURRENT-PAGE", currentPage}) as const
+export const SetTotalUsersCountAC = (totalUsersCount: number) => ({type: "TOTAL-USERS-COUNT", totalUsersCount}) as const
