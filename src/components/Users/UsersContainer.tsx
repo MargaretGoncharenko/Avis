@@ -10,7 +10,46 @@ import {
     UnfollowAC,
     UserPropsType
 } from "../../redux/users-reducer";
-import UsersC from "./UsersC";
+
+import axios from "axios";
+import {UsersFunc} from "./UsersFunc";
+
+class UsersContainerClass extends React.Component<UsersPropsType> {
+    componentDidMount() {
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .then(response => {
+
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            });
+    }
+
+    onPageChangedHandler = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items)
+            });
+    }
+
+    render() {
+        return <UsersFunc totalUsersCount={this.props.totalUsersCount}
+                          setTotalUsersCount={this.props.setTotalUsersCount}
+                          users={this.props.users}
+                          currentPage={this.props.currentPage}
+                          setUsers={this.props.setUsers}
+                          follow={this.props.follow}
+                          pageSize={this.props.pageSize}
+                          setCurrentPage={this.props.setCurrentPage}
+                          unfollow={this.props.unfollow}
+                          onPageChangedHandler={this.onPageChangedHandler}
+        />
+
+    }
+}
+export default UsersContainerClass;
 
 export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
@@ -55,4 +94,4 @@ const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
         },
     }
 }
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersC)
+export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerClass)
