@@ -5,15 +5,16 @@ import {UserPropsType} from "../../redux/users-reducer";
 
 type UsersFuncPropsType = {
     totalUsersCount: number
-    setTotalUsersCount: (totalUsersCount: number)=>void
+    setTotalUsersCount: (totalUsersCount: number) => void
     users: Array<UserPropsType>
     currentPage: number
-    setUsers:(users: Array<UserPropsType>) => void
+    setUsers: (users: Array<UserPropsType>) => void
     follow: (userId: string) => void
     unfollow: (userId: string) => void
     pageSize: number
     setCurrentPage: (currentPage: number) => void
-    onPageChangedHandler: (pageNumber: number)=>void
+    onPageChangedHandler: (pageNumber: number) => void
+    isFetching: boolean
 }
 export const UsersFunc = (props: UsersFuncPropsType) => {
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
@@ -22,7 +23,7 @@ export const UsersFunc = (props: UsersFuncPropsType) => {
         pages.push(i)
     }
     console.log(props.totalUsersCount)
-    return(
+    return (
         <div>
             {pages.map(p => {
                 return (
@@ -46,7 +47,7 @@ export const UsersFunc = (props: UsersFuncPropsType) => {
                                     props.unfollow(u.id)
                                 }}>unfollow</button>
                                 : <button onClick={() => {
-                                   props.follow(u.id)
+                                    props.follow(u.id)
                                 }}>follow</button>}
                         </div>
                     </span>
