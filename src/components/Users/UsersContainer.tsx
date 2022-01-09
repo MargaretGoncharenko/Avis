@@ -1,26 +1,36 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
-import {Dispatch} from "redux";
 import {
-    FollowAC,
-    SetCurrentPageAC,
-    SetTotalUsersCountAC,
-    SetUsersAC, ToggleIsFetchingAC,
-    UnfollowAC,
+    follow, setCurrentPage, setTotalUsersCount,
+    setUsers, toggleIsFetching, unfollow,
     UserPropsType
 } from "../../redux/users-reducer";
 import axios from "axios";
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/preloader/Preloader";
 
-class UsersContainerClass extends React.Component<UsersPropsType> {
+type UsersContainerClassPropsType = {
+    users: Array<UserPropsType>
+    pageSize: number
+    totalUsersCount: number
+    currentPage: number
+    isFetching: boolean
+    follow: (userId: string) => void
+    unfollow: (userId: string) => void
+    setUsers: (users: Array<UserPropsType>) => void
+    setCurrentPage: (currentPage: number) => void
+    setTotalUsersCount: (totalUsersCount: number) => void
+    toggleIsFetching: (isFetching: boolean) => void
+}
+
+class UsersContainerClass extends React.Component<UsersContainerClassPropsType> {
     componentDidMount() {
-        this.props.ToggleIsFetching(true)
+        this.props.toggleIsFetching(true)
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
-                this.props.ToggleIsFetching(false)
+                this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
                 this.props.setTotalUsersCount(response.data.totalCount)
             });
@@ -28,11 +38,11 @@ class UsersContainerClass extends React.Component<UsersPropsType> {
 
     onPageChangedHandler = (pageNumber: number) => {
         this.props.setCurrentPage(pageNumber)
-        this.props.ToggleIsFetching(true)
+        this.props.toggleIsFetching(true)
         axios
             .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
             .then(response => {
-                this.props.ToggleIsFetching(false)
+                this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
             });
     }
@@ -61,7 +71,6 @@ class UsersContainerClass extends React.Component<UsersPropsType> {
 
 export default UsersContainerClass;
 
-export type UsersPropsType = MapStateToPropsType & MapDispatchToPropsType
 
 type MapStateToPropsType = {
     users: Array<UserPropsType>
@@ -79,35 +88,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         isFetching: state.usersPage.isFetching,
     }
 }
-type MapDispatchToPropsType = {
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
-    setUsers: (users: Array<UserPropsType>) => void
-    setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    ToggleIsFetching: (isFetching: boolean) => void
-}
-
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        follow: (userId: string) => {
-            dispatch(FollowAC(userId))
-        },
-        unfollow: (userId: string) => {
-            dispatch(UnfollowAC(userId))
-        },
-        setUsers: (users: Array<UserPropsType>) => {
-            dispatch(SetUsersAC(users))
-        },
-        setCurrentPage: (currentPage: number) => {
-            dispatch(SetCurrentPageAC(currentPage))
-        },
-        setTotalUsersCount: (totalUsersCount: number) => {
-            dispatch(SetTotalUsersCountAC(totalUsersCount))
-        },
-        ToggleIsFetching: (isFetching: boolean) => {
-            dispatch(ToggleIsFetchingAC(isFetching))
-        },
-    }
-}
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersContainerClass)
+export const UsersContainer = connect(mapStateToProps, {
+    follow, unfollow, setUsers, setCurrentPage, setTotalUsersCount, toggleIsFetching
+})(UsersContainerClass)
