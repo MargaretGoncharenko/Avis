@@ -10,6 +10,30 @@ type PostPropsType = {
 type ProfilePagePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
+    profile: ProfileProps
+}
+
+export type ProfileProps = {
+    photos: PhotosType
+    contacts: ContactsType
+    lookingForAJob: boolean
+    lookingForAJobDescription: string
+    fullName: string
+    userId?: number
+}
+type PhotosType = {
+    large: string
+    small: string
+}
+type ContactsType = {
+    "facebook": string
+    "website": string
+    "vk": string
+    "twitter": string
+    "instagram": string
+    "youtube": string
+    "github": string
+    "mainLink": string
 }
 export type InitialProfileStateType = ProfilePagePropsType
 
@@ -19,7 +43,27 @@ const initialState: InitialProfileStateType = {
         {id: v1(), postText: "Hello everyone!", likesCount: 45},
         {id: v1(), postText: "It's my first post.", likesCount: 28},
     ],
-    newPostText: ""
+    newPostText: "",
+    profile: {
+        photos: {
+            large: "",
+            small: "",
+        },
+        contacts: {
+            "facebook": "",
+            "website": "",
+            "vk": "",
+            "twitter": "",
+            "instagram": "",
+            "youtube": "",
+            "github": "",
+            "mainLink": "",
+        },
+        lookingForAJob: false,
+        lookingForAJobDescription: "",
+        fullName: "",
+
+    }
 }
 
 export const profileReducer = (state: InitialProfileStateType = initialState, action: AllActionTypes): InitialProfileStateType => {
@@ -39,6 +83,8 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
             }
         case  "UPDATE-POST-TEXT":
             return {...state, newPostText: action.newText}
+        case "SET-USER-PROFILE":
+            return {...state, profile: action.profile}
         default:
             return state
     }
@@ -55,3 +101,6 @@ export const UpdatePostTextAC = (newPostText: string) => {
         newText: newPostText
     } as const
 }
+
+
+export const setUserProfile = (profile: ProfileProps) => ({type: "SET-USER-PROFILE", profile}) as const

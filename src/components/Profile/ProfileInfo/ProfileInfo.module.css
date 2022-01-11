@@ -1,11 +1,31 @@
+.profileBlock {
+    display: grid;
+    grid-template-areas:
+    "avatar description"
+    "avatar contacts";
+    grid-template-columns: 200px 500px;
+    grid-template-rows: 80px 140px;
+    grid-gap: 5px;
+}
+
 .avatar {
+    grid-area: avatar;
     width: 150px;
     height: 150px;
+}
+
+.contactsContainer {
+    grid-area: contacts;
+}
+
+.descriptionContainer {
+    grid-area: description;
 }
 
 .wallpaper {
     width: 75%;
 }
-.descriptionBlock{
+
+.descriptionBlock {
     padding: 5px 25px;
 }
