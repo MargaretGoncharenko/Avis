@@ -10,8 +10,8 @@ type UsersFuncPropsType = {
     users: Array<UserPropsType>
     currentPage: number
     setUsers: (users: Array<UserPropsType>) => void
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     pageSize: number
     setCurrentPage: (currentPage: number) => void
     onPageChangedHandler: (pageNumber: number) => void

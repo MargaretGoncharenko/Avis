@@ -16,8 +16,8 @@ type UsersContainerClassPropsType = {
     totalUsersCount: number
     currentPage: number
     isFetching: boolean
-    follow: (userId: string) => void
-    unfollow: (userId: string) => void
+    follow: (userId: number) => void
+    unfollow: (userId: number) => void
     setUsers: (users: Array<UserPropsType>) => void
     setCurrentPage: (currentPage: number) => void
     setTotalUsersCount: (totalUsersCount: number) => void
@@ -49,7 +49,6 @@ class UsersContainerClass extends React.Component<UsersContainerClassPropsType> 
 
     render() {
         return <>
-
             {this.props.isFetching ? <Preloader/> : null}
             <UsersFunc totalUsersCount={this.props.totalUsersCount}
                        setTotalUsersCount={this.props.setTotalUsersCount}
@@ -62,15 +61,12 @@ class UsersContainerClass extends React.Component<UsersContainerClassPropsType> 
                        unfollow={this.props.unfollow}
                        onPageChangedHandler={this.onPageChangedHandler}
                        isFetching={this.props.isFetching}
-
             />
         </>
-
     }
 }
 
 export default UsersContainerClass;
-
 
 type MapStateToPropsType = {
     users: Array<UserPropsType>

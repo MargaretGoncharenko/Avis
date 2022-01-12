@@ -1,7 +1,6 @@
 import {v1} from "uuid";
 import {AllActionTypes} from "./AllActionTypes";
 
-
 type PostPropsType = {
     id: string
     postText: string
@@ -12,14 +11,13 @@ type ProfilePagePropsType = {
     newPostText: string
     profile: ProfileProps
 }
-
 export type ProfileProps = {
     photos: PhotosType
     contacts: ContactsType
     lookingForAJob: boolean
     lookingForAJobDescription: string
     fullName: string
-    userId?: number
+    userId: number | null
 }
 type PhotosType = {
     large: string
@@ -59,10 +57,10 @@ const initialState: InitialProfileStateType = {
             "github": "",
             "mainLink": "",
         },
-        lookingForAJob: false,
+        lookingForAJob: true,
         lookingForAJobDescription: "",
         fullName: "",
-
+        userId: 1,
     }
 }
 

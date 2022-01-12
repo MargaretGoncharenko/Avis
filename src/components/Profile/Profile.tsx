@@ -11,7 +11,8 @@ export const Profile = (props: ProfilePropsType) => {
 
     return (
         <div>
-            <ProfileInfo profile={props.profile} setUserProfile={props.setUserProfile}/>
+            <ProfileInfo profile={props.profile} setUserProfile={props.setUserProfile}
+            />
             <MyPostsContainer/>
         </div>
     )

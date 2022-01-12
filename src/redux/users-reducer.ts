@@ -9,7 +9,7 @@ type photosPropsType = {
     large: string
 }
 export type UserPropsType = {
-    id: string
+    id: number
     photos: photosPropsType
     followed: boolean
     name: string
@@ -68,8 +68,8 @@ export const usersReducer = (state: InitialUsersStateType = initialState, action
     }
 }
 
-export const follow = (userId: string) => ({type: "FOLLOW", userId}) as const
-export const unfollow = (userId: string) => ({type: "UNFOLLOW", userId}) as const
+export const follow = (userId: number) => ({type: "FOLLOW", userId}) as const
+export const unfollow = (userId: number) => ({type: "UNFOLLOW", userId}) as const
 export const setUsers = (users: Array<UserPropsType>) => ({type: "SET-USERS", users}) as const
 export const setCurrentPage = (currentPage: number) => ({type: "SET-CURRENT-PAGE", currentPage}) as const
 export const setTotalUsersCount = (totalUsersCount: number) => ({type: "TOTAL-USERS-COUNT", totalUsersCount}) as const
