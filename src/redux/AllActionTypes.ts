@@ -4,6 +4,7 @@ import {
     follow, setCurrentPage, setTotalUsersCount,
     setUsers, toggleIsFetching, unfollow
 } from "./users-reducer";
+import {setAuthUserData} from "./auth-reducer";
 
 export type DialogsActionTypes =
     ReturnType<typeof AddMessageAC>
@@ -22,5 +23,6 @@ export type UsersActionTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
 
+export type AuthUserActionTypes = ReturnType<typeof setAuthUserData>
 
-export type AllActionTypes = DialogsActionTypes | ProfileActionTypes | UsersActionTypes
+export type AllActionTypes = DialogsActionTypes | ProfileActionTypes | UsersActionTypes | AuthUserActionTypes
