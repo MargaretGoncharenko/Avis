@@ -23,7 +23,6 @@ class HeaderContainerClass extends React.Component<HeaderContainerClassPropsType
                     if (response.data.resultCode === 0) {
                         const {id, email, login} = response.data.data;
                         this.props.setAuthUserData({id, email, login})
-                        debugger
                     }
                 }
             )

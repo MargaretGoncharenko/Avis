@@ -28,7 +28,9 @@ class UsersContainerClass extends React.Component<UsersContainerClassPropsType> 
     componentDidMount() {
         this.props.toggleIsFetching(true)
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
@@ -40,7 +42,9 @@ class UsersContainerClass extends React.Component<UsersContainerClassPropsType> 
         this.props.setCurrentPage(pageNumber)
         this.props.toggleIsFetching(true)
         axios
-            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`)
+            .get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`, {
+                withCredentials: true
+            })
             .then(response => {
                 this.props.toggleIsFetching(false)
                 this.props.setUsers(response.data.items)
