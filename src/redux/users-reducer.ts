@@ -1,4 +1,5 @@
 import {AllActionTypes} from "./AllActionTypes";
+import {usersAPI} from "../api/api";
 
 type LocationPropsType = {
     city: string
@@ -88,3 +89,14 @@ export const toggleIsFollowingProgress = (isFetching: boolean, userId: number) =
     isFetching,
     userId
 } as const)
+
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
+        dispatch(toggleIsFetching(true))
+        usersAPI.getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetching(false))
+            dispatch(setUsers(data.items))
+            dispatch(setTotalUsersCount(data.totalCount))
+        });
+    }
+}
