@@ -1,5 +1,5 @@
 import React from "react";
-import "./Users.css"
+import styled from "./Users.module.css"
 import userPhoto from "../../assets/user.png";
 import {UserPropsType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
@@ -16,17 +16,17 @@ type UsersFuncPropsType = {
     followingInProgress: Array<number>
 }
 export const UsersFunc = (props: UsersFuncPropsType) => {
+
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
     let pages = [];
     for (let i = 1; i <= pagesCount; i++) {
         pages.push(i)
     }
-    console.log(props.totalUsersCount)
     return (
         <div>
             {pages.map(p => {
                 return (
-                    <span className={props.currentPage === p ? "selectedPage" : ""}
+                    <span className={props.currentPage === p ? styled.currentPage : ""}
                           onClick={() => {
                               props.onPageChangedHandler(p)
                           }}
@@ -39,7 +39,7 @@ export const UsersFunc = (props: UsersFuncPropsType) => {
                     <span>
                         <div>
                             <NavLink to={'/profile/' + u.id}>
-                            <img className={"avatar"} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                            <img className={styled.avatar} src={u.photos.small != null ? u.photos.small : userPhoto}/>
                             </NavLink>
                         </div>
                         <div>

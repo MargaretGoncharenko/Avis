@@ -17,3 +17,5 @@ export let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 export type AppStateType = ReturnType<typeof rootReducer>
 export type AppStoreType = typeof store;
 
+
+
