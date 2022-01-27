@@ -3,21 +3,16 @@ import "./Users.css"
 import userPhoto from "../../assets/user.png";
 import {UserPropsType} from "../../redux/users-reducer";
 import {NavLink} from "react-router-dom";
-import axios from "axios";
 
 type UsersFuncPropsType = {
     totalUsersCount: number
-    setTotalUsersCount: (totalUsersCount: number) => void
     users: Array<UserPropsType>
     currentPage: number
-    setUsers: (users: Array<UserPropsType>) => void
     follow: (userId: number) => void
     unfollow: (userId: number) => void
     pageSize: number
     setCurrentPage: (currentPage: number) => void
     onPageChangedHandler: (pageNumber: number) => void
-    isFetching: boolean
-    toggleIsFollowingProgress: (isFetching: boolean, userId: number) => void
     followingInProgress: Array<number>
 }
 export const UsersFunc = (props: UsersFuncPropsType) => {
@@ -49,41 +44,16 @@ export const UsersFunc = (props: UsersFuncPropsType) => {
                         </div>
                         <div>
                             {u.followed
-                                ? <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id)
-
-                                    axios
-                                        .delete(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`,
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    "API-KEY": "af7f2879-c3e2-4926-80ff-23abea81785c"
-                                                }
-                                            })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.unfollow(u.id)
-                                            }
-                                            props.toggleIsFollowingProgress(false, u.id)
-                                        });
-                                }}>unfollow</button>
-                                : <button disabled={props.followingInProgress.some(id => id === u.id)} onClick={() => {
-                                    props.toggleIsFollowingProgress(true, u.id)
-                                    axios
-                                        .post(`https://social-network.samuraijs.com/api/1.0/follow/${u.id}`, {},
-                                            {
-                                                withCredentials: true,
-                                                headers: {
-                                                    "API-KEY": "af7f2879-c3e2-4926-80ff-23abea81785c"
-                                                }
-                                            })
-                                        .then(response => {
-                                            if (response.data.resultCode === 0) {
-                                                props.follow(u.id)
-                                            }
-                                            props.toggleIsFollowingProgress(false, u.id)
-                                        });
-                                }}>follow</button>}
+                                ? <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                          onClick={() => {
+                                              props.unfollow(u.id)
+                                          }}>
+                                    unfollow</button>
+                                : <button disabled={props.followingInProgress.some(id => id === u.id)}
+                                          onClick={() => {
+                                              props.follow(u.id)
+                                          }}>
+                                    follow</button>}
                         </div>
                     </span>
                     <span>

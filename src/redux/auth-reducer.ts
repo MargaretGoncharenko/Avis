@@ -24,7 +24,6 @@ export const authReducer = (state: InitialAuthStateType = initialState, action: 
             }
         default:
             return state
-
     }
 }
 export type DataType = {
@@ -32,4 +31,4 @@ export type DataType = {
     email: string | null
     login: string | null
 }
-export const setAuthUserData = (data: DataType) => ({type: "SET-AUTH-USER-DATA", data}) as const
+export const setAuthUserData = (data: DataType) => ({type: "SET-AUTH-USER-DATA", data} as const)
