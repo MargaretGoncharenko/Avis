@@ -1,5 +1,10 @@
 import axios, {AxiosResponse} from "axios";
 
+type DateResponseType<T> = {
+    data: T,
+    message: Array<string>
+    resultCode: number
+}
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
@@ -26,10 +31,13 @@ export const usersAPI = {
                 return response.data
             })
     },
+    getProfile(userId: number) {
+        return instance.get(`profile/` + userId)
+    }
+}
+export const authAPI = {
+    me() {
+        return instance.get('auth/me')
+    }
 }
 
-type DateResponseType<T> = {
-    data: T,
-    message: Array<string>
-    resultCode: number
-}

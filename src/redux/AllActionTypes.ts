@@ -15,6 +15,7 @@ export  type  ProfileActionTypes =
     | ReturnType<typeof UpdatePostTextAC>
     | ReturnType<typeof setUserProfile>
 
+
 export type UsersActionTypes =
     ReturnType<typeof followSuccess>
     | ReturnType<typeof unfollowSuccess>
@@ -23,6 +24,7 @@ export type UsersActionTypes =
     | ReturnType<typeof setTotalUsersCount>
     | ReturnType<typeof toggleIsFetching>
     | ReturnType<typeof toggleIsFollowingProgress>
+
 
 export type AuthUserActionTypes = ReturnType<typeof setAuthUserData>
 

@@ -4,7 +4,7 @@ import {ProfileProps} from "../../../redux/profile-reducer";
 import {Preloader} from "../../common/preloader/Preloader";
 
 type ProfileInfoPropsType = {
-    setUserProfile: (profile: ProfileProps) => void
+    getUserProfile: (userId: number) => void
     profile: ProfileProps
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
