@@ -6,6 +6,8 @@ import {
 } from "../../redux/users-reducer";
 import {UsersFunc} from "./UsersFunc";
 import {Preloader} from "../common/preloader/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 
 type UsersContainerClassPropsType = {
     users: Array<UserPropsType>
@@ -20,7 +22,7 @@ type UsersContainerClassPropsType = {
     getUsers: (currentPage: number, pageSize: number) => void
 }
 
-class UsersContainerClass extends React.Component<UsersContainerClassPropsType> {
+export class UsersContainerClass extends React.Component<UsersContainerClassPropsType> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
@@ -47,8 +49,6 @@ class UsersContainerClass extends React.Component<UsersContainerClassPropsType> 
     }
 }
 
-export default UsersContainerClass;
-
 type MapStateToPropsType = {
     users: Array<UserPropsType>
     pageSize: number
@@ -67,6 +67,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
         followingInProgress: state.usersPage.followingInProgress
     }
 }
-export const UsersContainer = connect(mapStateToProps, {
-    follow, unfollow, setCurrentPage, getUsers
-})(UsersContainerClass)
+
+export default compose<React.ComponentType>(
+    withAuthRedirect,
+    connect(mapStateToProps, {follow, unfollow, setCurrentPage, getUsers}),
+)(UsersContainerClass)
