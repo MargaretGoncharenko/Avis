@@ -3,9 +3,9 @@
     grid-template-areas:
     "avatar description"
     "avatar contacts";
-    grid-template-columns: 200px 500px;
-    grid-template-rows: 80px 140px;
-    grid-gap: 5px;
+    grid-template-columns: 200px 650px;
+    grid-template-rows: 130px 140px;
+    grid-gap: 15px;
 }
 
 .avatar {
@@ -16,6 +16,7 @@
 
 .contactsContainer {
     grid-area: contacts;
+    font-size: 13px;
 }
 
 .descriptionContainer {
@@ -27,5 +28,5 @@
 }
 
 .descriptionBlock {
-    padding: 5px 25px;
+    padding: 15px 25px;
 }
