@@ -7,6 +7,8 @@ import {ProfileStatus} from "./ProfileStatus";
 type ProfileInfoPropsType = {
     getUserProfile: (userId: number) => void
     profile: ProfileProps
+    status: string
+    updateStatus: (status: string) => void
 }
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
     if (!props.profile) {
@@ -37,7 +39,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                     <div style={{fontWeight: "bold", fontSize: "25px"}}>{props.profile.fullName}</div>
                     <div style={{fontStyle: "oblique"}}>{props.profile.lookingForAJob}</div>
                     <div style={{fontStyle: "oblique"}}>{props.profile.lookingForAJobDescription}</div>
-                    <div><ProfileStatus status={"hello"}/></div>
+                    <div><ProfileStatus status={props.status}/></div>
                 </div>
             </div>
         </div>

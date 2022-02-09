@@ -1,7 +1,7 @@
 import {v1} from "uuid";
 import {AllActionTypes} from "./AllActionTypes";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 type PostPropsType = {
     id: string
@@ -12,6 +12,7 @@ type ProfilePagePropsType = {
     posts: Array<PostPropsType>
     newPostText: string
     profile: ProfileProps
+    status: string
 }
 export type ProfileProps = {
     photos: PhotosType
@@ -63,7 +64,8 @@ const initialState: InitialProfileStateType = {
         lookingForAJobDescription: "",
         fullName: "",
         userId: 1,
-    }
+    },
+    status: "",
 }
 
 export const profileReducer = (state: InitialProfileStateType = initialState, action: AllActionTypes): InitialProfileStateType => {
@@ -85,6 +87,8 @@ export const profileReducer = (state: InitialProfileStateType = initialState, ac
             return {...state, newPostText: action.newText}
         case "SET-USER-PROFILE":
             return {...state, profile: action.profile}
+        case "SET-STATUS":
+            return {...state, status: action.status}
         default:
             return state
     }
@@ -110,4 +114,20 @@ export const getUserProfile = (userId: number) => (dispatch: Dispatch) => {
         .then(response => {
             dispatch(setUserProfile(response.data))
         });
+}
+
+export const setStatus = (status: string) => ({type: "SET-STATUS", status} as const)
+export const getStatus = (userId: number) => (dispatch: Dispatch) => {
+    profileAPI.getStatus(userId)
+        .then(response => {
+            dispatch(setStatus(response.data))
+        })
+}
+export const updateStatus = (status: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(status)
+        .then(response => {
+            if (response.data.resultCode === 0) {
+                dispatch(setStatus(status))
+            }
+        })
 }
