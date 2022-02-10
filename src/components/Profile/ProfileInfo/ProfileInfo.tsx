@@ -39,7 +39,9 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                     <div style={{fontWeight: "bold", fontSize: "25px"}}>{props.profile.fullName}</div>
                     <div style={{fontStyle: "oblique"}}>{props.profile.lookingForAJob}</div>
                     <div style={{fontStyle: "oblique"}}>{props.profile.lookingForAJobDescription}</div>
-                    <div><ProfileStatus status={props.status}/></div>
+                    <div><ProfileStatus status={props.status}
+                                        updateStatus={props.updateStatus}
+                    /></div>
                 </div>
             </div>
         </div>
